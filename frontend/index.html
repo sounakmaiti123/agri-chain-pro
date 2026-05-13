@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AgriChain Pro</title>
+
+  <link rel="stylesheet" href="/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+  <div class="app-layout">
+
+  <!-- ✅ SIDEBAR -->
+  <aside class="sidebar">
+
+    <div class="logo">
+      🌱 AgriChain <b>Pro</b>
+    </div>
+
+    <div class="menu-section">
+      <p class="menu-title">DASHBOARDS</p>
+
+     <button class="menu-item active" onclick="switchRole('farmer')">🚜 Farmer</button>
+<button class="menu-item" onclick="switchRole('transporter')">🚚 Transporter</button>
+<button class="menu-item" onclick="switchRole('vendor')">🏪 Vendor</button>
+    </div>
+
+    <div class="menu-section">
+      <p class="menu-title">PAGES</p>
+
+      <button class="menu-item" onclick="switchRole('vendor')">🏪 Paymnet</button>
+      <button class="menu-item">🤖 AI Assistant</button>
+    </div>
+
+  </aside>
+  <!-- ✅ MAIN CONTENT -->
+  <div class="main-content">
+    <div class="top-actions" id="authActions"></div>
+   
+  <div class="page">
+    <div id="loader">
+  <div class="loader-content">
+    🌱 <span>AgriChain Pro</span>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="dashboard">
+  <span class="badge">Smart Agriculture Platform</span>
+  <h1>Welcome to <span>AgriChain Pro</span></h1>
+  <p>Optimize your agricultural supply chain from farm to market with AI-powered insights</p>
+
+  <div class="role-tabs">
+    <button class="tab active" onclick="switchRole('farmer')">🚜 Farmer</button>
+    <button class="tab" onclick="switchRole('transporter')">🚚 Transporter</button>
+    <button class="tab" onclick="switchRole('vendor')">🏪 Vendor</button>
+  </div>
+</section>
+
+<!-- ================= APP WRAPPER ================= -->
+<div class="app-wrapper">
+
+<!-- ================= DASHBOARD CONTAINER ================= -->
+<div class="dashboard-container">
+
+  <!-- ================= FARMER DASHBOARD ================= -->
+  <div id="farmer-dashboard" class="dashboard active-dashboard">
+
+    <!-- FARMER SECTION -->
+    <section class="section window" id="farmer">
+
+      <!-- STATS -->
+      <div class="stats">
+        <div class="card">
+          <h4>Total Inventory</h4>
+          <h2>9,000 kg</h2>
+          <span class="green">+12% from last month</span>
+        </div>
+
+        <div class="card">
+          <h4>Ready to Harvest</h4>
+          <h2 class="blue">1,800 kg</h2>
+          <span>Corn – Field B</span>
+        </div>
+
+        <div class="card">
+          <h4>Market Value</h4>
+          <h2>$18,500</h2>
+          <span>Current market rates</span>
+        </div>
+      </div>
+
+      <!-- INVENTORY -->
+      <div class="section-header">
+        <h2>Crop Inventory</h2>
+        <button class="export-btn">⬇ Export</button>
+      </div>
+
+      <div class="inventory-grid">
+        <div class="inventory-card">
+          <h3>Wheat <span class="status harvested">harvested</span></h3>
+          <p>📍 Field A</p>
+          <h2>2,500 kg</h2>
+          <div class="progress"><div style="width:70%"></div></div>
+        </div>
+
+        <div class="inventory-card">
+          <h3>Corn <span class="status ready">ready</span></h3>
+          <p>📍 Field B</p>
+          <h2>1,800 kg</h2>
+          <div class="progress"><div style="width:60%"></div></div>
+        </div>
+
+        <div class="inventory-card">
+          <h3>Rice <span class="status processing">processing</span></h3>
+          <p>📍 Storage 1</p>
+          <h2>3,200 kg</h2>
+          <div class="progress"><div style="width:80%"></div></div>
+        </div>
+
+        <div class="inventory-card">
+          <h3>Soybeans <span class="status planted">planted</span></h3>
+          <p>📍 Field C</p>
+          <h2>1,500 kg</h2>
+          <div class="progress"><div style="width:50%"></div></div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ================= AI SECTION ================= -->
+    <section class="section window" id="ai">
+      <h2>AI Crop Recommendations</h2>
+      <p class="sub">Smart suggestions based on weather, soil, and market data</p>
+
+      <div class="ai-grid">
+        <div class="ai-card">
+          <h3>Tomatoes <span class="match">96% Match</span></h3>
+          <ul>
+            <li>🌦 Optimal weather expected</li>
+            <li>📈 High demand (+23%)</li>
+            <li>🌾 Yield: 4,500 kg/ha</li>
+          </ul>
+          <div class="profit">$12,500 / hectare</div>
+        </div>
+
+        <div class="ai-card">
+          <h3>Sweet Peppers <span class="match">89% Match</span></h3>
+          <ul>
+            <li>🧪 Soil pH suitable</li>
+            <li>📊 Stable market</li>
+            <li>🌾 Yield: 3,800 kg/ha</li>
+          </ul>
+          <div class="profit">$9,200 / hectare</div>
+        </div>
+      </div>
+      <!-- ================= LIVE AI PREDICTION OUTPUT ================= -->
+<div class="ai-live-card">
+
+  <div class="ai-live-header">
+    <div>
+      <h3>🔮 Live AI Yield Prediction</h3>
+      <p>Based on your current farm inputs</p>
+    </div>
+    <span class="ai-badge">Live</span>
+  </div>
+
+  <div class="ai-live-grid">
+
+    <div class="ai-metric">
+      <span class="label">Predicted Yield</span>
+      <span class="value">4,200 kg / ha</span>
+    </div>
+
+    <div class="ai-metric">
+      <span class="label">Estimated Profit</span>
+      <span class="value profit">$11,300 / ha</span>
+    </div>
+
+    <div class="ai-metric">
+      <span class="label">Confidence Level</span>
+      <span class="value">92%</span>
+    </div>
+
+    <div class="ai-metric">
+      <span class="label">Risk Assessment</span>
+      <span class="value low-risk">Low Risk</span>
+    </div>
+
+  </div>
+
+</div>
+    </section>
+
+    <!-- ================= ML PREDICTION SECTION ================= -->
+   <section class="section window ml-window" id="ml">
+
+  <!-- HEADER -->
+  <div class="ml-header">
+    <div class="ml-title">
+      <span class="ml-icon">🌿</span>
+      <div>
+        <h2>ML Crop Yield Prediction</h2>
+        <p>Input your farm attributes to get a personalized yield prediction</p>
+      </div>
+    </div>
+
+    <span class="ml-badge">AI Powered</span>
+  </div>
+
+  <!-- FORM CONTAINER -->
+  <div class="ml-card">
+
+    <h3 class="ml-subtitle">🧪 Enter Farm Attributes</h3>
+
+    <!-- TOP INPUT GRID -->
+    <div class="ml-grid-4">
+      <div class="ml-field">
+        <label>Crop Type</label>
+        <select>
+          <option>Wheat</option>
+          <option>Rice</option>
+          <option>Corn</option>
+        </select>
+      </div>
+
+      <div class="ml-field">
+        <label>Irrigation Type</label>
+        <select>
+          <option>Drip</option>
+          <option>Canal</option>
+          <option>Rainfed</option>
+        </select>
+      </div>
+
+      <div class="ml-field">
+        <label>Pest Control</label>
+        <select>
+          <option>Integrated (IPM)</option>
+          <option>Chemical</option>
+          <option>Organic</option>
+        </select>
+      </div>
+
+      <div class="ml-field">
+        <label>Field Area (acres)</label>
+        <input type="number" value="1" />
+      </div>
+    </div>
+
+    <!-- SLIDERS -->
+    <div class="ml-sliders">
+
+      <div class="ml-slider">
+        <div class="ml-slider-head">
+          <span>Soil Nitrogen (N)</span>
+          <strong>55%</strong>
+        </div>
+        <input type="range" value="55" />
+      </div>
+
+      <div class="ml-slider">
+        <div class="ml-slider-head">
+          <span>Soil Phosphorus (P)</span>
+          <strong>50%</strong>
+        </div>
+        <input type="range" value="50" />
+      </div>
+
+      <div class="ml-slider">
+        <div class="ml-slider-head">
+          <span>Soil Potassium (K)</span>
+          <strong>50%</strong>
+        </div>
+        <input type="range" value="50" />
+      </div>
+
+      <div class="ml-slider">
+        <div class="ml-slider-head">
+          <span>Rainfall</span>
+          <strong>450 mm</strong>
+        </div>
+        <input type="range" value="450" />
+      </div>
+
+      <div class="ml-slider">
+        <div class="ml-slider-head">
+          <span>Temperature</span>
+          <strong>24°C</strong>
+        </div>
+        <input type="range" value="24" />
+      </div>
+
+    </div>
+
+    <!-- ACTION -->
+    <button class="ml-btn">
+      ⚙️ Predict Yield
+    </button>
+
+  </div>
+
+</section>
+
+  </div>
+
+  <!-- ================= TRANSPORT DASHBOARD ================= -->
+  <div id="transporter-dashboard" class="dashboard">
+    <section class="section window" id="transport">
+      <div class="section-header">
+        <div>
+          <h2>Route Management</h2>
+          <p class="sub">Current and scheduled transportation routes</p>
+        </div>
+        <button class="export-btn">⬇ Export</button>
+      </div>
+
+      <div class="route-card">
+        <div>
+          <h3>RT001 <span class="status harvested">active</span></h3>
+          <p>📍 Hooghly Rice Farm → Sealdah Wholesale Market</p>
+          <p>⏱ 45 km • 1h 20m</p>
+        </div>
+        <div>
+          <p>🚛 2,500 kg Rice</p>
+          <button class="start-btn" onclick="navigateRoute('RT001')">🧭 Navigate</button>
+        </div>
+      </div>
+
+      <div class="route-card">
+        <div>
+          <h3>RT002 <span class="status ready">scheduled</span></h3>
+          <p>📍 Burdwan Potato Farm → Howrah Plant</p>
+          <p>⏱ 32 km • 55m</p>
+        </div>
+        <div>
+          <p>🚛 1,800 kg Potatoes</p>
+          <button class="start-btn" onclick="navigateRoute('RT002')">🧭 Navigate</button>
+        </div>
+      </div>
+
+      <div class="route-card">
+        <div>
+          <h3>RT003 <span class="status processing">completed</span></h3>
+          <p>📍 Nadia Jute Farm → Kolkata Port</p>
+          <p>⏱ 78 km • 2h 15m</p>
+        </div>
+        <div>
+          <p>🚛 3,200 kg Jute</p>
+          <button class="start-btn" onclick="navigateRoute('RT003')">🧭 Navigate</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ================= VENDOR DASHBOARD ================= -->
+  <div id="vendor-dashboard" class="dashboard">
+
+  <section class="section window">
+
+    <!-- HEADER -->
+    <div class="section-header">
+      <div>
+        <h2>🏬 Vendor Dashboard</h2>
+        <p class="sub">Manage procurement, demand & pricing</p>
+      </div>
+      <button class="export-btn">⬇ Export Report</button>
+    </div>
+
+    <!-- METRICS -->
+    <div class="stats">
+      <div class="card">
+        <h4>Active Orders</h4>
+        <h2>18</h2>
+        <span class="green">+4 new today</span>
+      </div>
+
+      <div class="card">
+        <h4>Pending Deliveries</h4>
+        <h2>6</h2>
+        <span>Expected within 48h</span>
+      </div>
+
+      <div class="card">
+        <h4>Total Procurement Value</h4>
+        <h2>$42,300</h2>
+        <span>This month</span>
+      </div>
+    </div>
+
+    <!-- MARKET DEMAND -->
+    <div class="section-header" style="margin-top:30px;">
+      <h2>📊 Market Demand Overview</h2>
+    </div>
+
+    <div class="inventory-grid">
+      <div class="inventory-card">
+        <h3>Wheat</h3>
+        <p>Demand Level</p>
+        <h2 class="green">High</h2>
+        <div class="progress"><div style="width:85%"></div></div>
+      </div>
+
+      <div class="inventory-card">
+        <h3>Rice</h3>
+        <p>Demand Level</p>
+        <h2>Moderate</h2>
+        <div class="progress"><div style="width:60%"></div></div>
+      </div>
+
+      <div class="inventory-card">
+        <h3>Corn</h3>
+        <p>Demand Level</p>
+        <h2>Low</h2>
+        <div class="progress"><div style="width:35%"></div></div>
+      </div>
+    </div>
+
+    <!-- PRICE TABLE -->
+    <div class="section-header" style="margin-top:30px;">
+      <h2>💰 Current Market Prices</h2>
+    </div>
+
+    <div class="card" style="margin-top:12px;">
+      <table style="width:100%;border-collapse:collapse;">
+        <thead>
+          <tr style="text-align:left;color:var(--text-muted);font-size:13px;">
+            <th style="padding:10px 0;">Crop</th>
+            <th>Avg Price ($/kg)</th>
+            <th>Trend</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td style="padding:12px 0;">Wheat</td>
+            <td>$3.10</td>
+            <td class="green">↑ 4%</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 0;">Rice</td>
+            <td>$2.85</td>
+            <td>→ Stable</td>
+          </tr>
+          <tr>
+            <td style="padding:12px 0;">Corn</td>
+            <td>$1.95</td>
+            <td style="color:#ff6b6b;">↓ 3%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+<!-- ================= REVENUE ANALYTICS ================= -->
+<!-- ================= REVENUE + PROFIT ANALYTICS ================= -->
+<div class="section-header" style="margin-top:30px;">
+  <h2>📊 Financial Analytics</h2>
+</div>
+
+<div class="analytics-grid">
+
+  <!-- Revenue Chart -->
+  <div class="card analytics-card">
+    <h3 style="margin-bottom:14px;">📈 Monthly Revenue</h3>
+    <canvas id="vendorRevenueChart"></canvas>
+  </div>
+
+  <!-- Profit Margin Chart -->
+  <div class="card analytics-card">
+    <h3 style="margin-bottom:14px;">💰 Profit Margin (%)</h3>
+    <canvas id="vendorProfitChart"></canvas>
+  </div>
+
+</div>
+  </section>
+
+</div>
+
+</div>
+</div>
+<!-- ================= PREMIUM FOOTER ================= -->
+
+<section class="footer-cta">
+  <div class="cta-content">
+    <div>
+      <h3>Ready to optimize your supply chain?</h3>
+      <p>Smart farming. Smart logistics. Smart profits.</p>
+    </div>
+    <button class="cta-btn">Explore Now →</button>
+  </div>
+</section>
+
+<footer class="premium-footer">
+
+  <div class="footer-grid">
+
+    <!-- BRAND -->
+    <div class="footer-col">
+      <h2 class="footer-logo">🌱 AgriChain Pro</h2>
+      <p>
+        AI-powered agricultural supply chain platform connecting farmers,
+        transporters, and vendors seamlessly.
+      </p>
+
+      <div class="social-icons">
+  <!-- Facebook -->
+  <a href="https://facebook.com" target="_blank">
+    <i class="fab fa-facebook-f"></i>
+  </a>
+
+  <!-- Instagram -->
+  <a href="https://instagram.com" target="_blank">
+    <i class="fab fa-instagram"></i>
+  </a>
+
+  <!-- LinkedIn -->
+  <a href="https://linkedin.com" target="_blank">
+    <i class="fab fa-linkedin-in"></i>
+  </a>
+</div>
+    </div>
+
+    <!-- QUICK LINKS -->
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <a href="#">Farmer</a>
+      <a href="#">Transport</a>
+      <a href="#">Vendor</a>
+      <a href="#">Contact</a>
+    </div>
+
+    <!-- CONTACT -->
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <p>📍 IEM Kolkata, Sector 5</p>
+      <p>📞 +91 99999 88888</p>
+      <p>✉ support@agrichain.com</p>
+    </div>
+
+    <!-- WORKING HOURS -->
+    <div class="footer-col">
+      <h4>Service Hours</h4>
+      <p>Mon – Fri : 6:00 AM – 9:00 PM</p>
+      <p>Saturday : 7:00 AM – 8:00 PM</p>
+      <p>Sunday : 8:00 AM – 6:00 PM</p>
+
+      <div class="fresh-badge">
+        ✔ All operations monitored live
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>© 2026 AgriChain Pro. All rights reserved.</p>
+    <div>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+      <a href="#">Cookie Policy</a>
+    </div>
+  </div>
+
+</footer>
+</div>
+
+    <!-- 🔥 TILL HERE 👆 -->
+
+  </div>
+
+</div>
+
+<!-- ================= GET PLUS MODAL ================= -->
+<div id="plusModal" class="plus-overlay hidden">
+  <div class="plus-backdrop" onclick="closePlusModal()"></div>
+  <div class="plus-container">
+
+    <!-- Close Button -->
+    <button class="plus-close" onclick="closePlusModal()">✕</button>
+
+    <!-- Header -->
+    <div class="plus-header">
+      <span class="plus-badge-label">✨ UPGRADE</span>
+      <h1 class="plus-title">Unlock the Full Power of <span>AgriChain Pro</span></h1>
+      <p class="plus-subtitle">Choose the plan that fits your agricultural business</p>
+
+      <!-- Billing Toggle -->
+      <div class="billing-toggle">
+        <span class="billing-label active" id="monthlyLabel">Monthly</span>
+        <div class="toggle-switch" onclick="toggleBilling()">
+          <div class="toggle-knob" id="toggleKnob"></div>
+        </div>
+        <span class="billing-label" id="yearlyLabel">Yearly <span class="save-tag">Save 20%</span></span>
+      </div>
+    </div>
+
+    <!-- Pricing Cards -->
+    <div class="pricing-grid">
+
+      <!-- FREE PLAN -->
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="plan-icon">🌱</div>
+          <h3>Starter</h3>
+          <p class="plan-desc">For individual farmers getting started</p>
+        </div>
+        <div class="plan-price">
+          <span class="currency">$</span>
+          <span class="amount" data-monthly="0" data-yearly="0">0</span>
+          <span class="period">/month</span>
+        </div>
+        <ul class="plan-features">
+          <li class="included"><i class="fas fa-check"></i> 1 Dashboard</li>
+          <li class="included"><i class="fas fa-check"></i> Basic Crop Tracking</li>
+          <li class="included"><i class="fas fa-check"></i> 3 Inventory Items</li>
+          <li class="excluded"><i class="fas fa-times"></i> AI Recommendations</li>
+          <li class="excluded"><i class="fas fa-times"></i> ML Yield Prediction</li>
+          <li class="excluded"><i class="fas fa-times"></i> Route Optimization</li>
+          <li class="excluded"><i class="fas fa-times"></i> Analytics Dashboard</li>
+          <li class="excluded"><i class="fas fa-times"></i> Priority Support</li>
+        </ul>
+        <button class="plan-btn plan-btn-outline">Current Plan</button>
+      </div>
+
+      <!-- PRO PLAN (FEATURED) -->
+      <div class="pricing-card featured">
+        <div class="popular-badge">🔥 Most Popular</div>
+        <div class="pricing-card-header">
+          <div class="plan-icon">⚡</div>
+          <h3>Pro</h3>
+          <p class="plan-desc">For serious farmers & transporters</p>
+        </div>
+        <div class="plan-price">
+          <span class="currency">$</span>
+          <span class="amount" data-monthly="29" data-yearly="23">29</span>
+          <span class="period">/month</span>
+        </div>
+        <ul class="plan-features">
+          <li class="included"><i class="fas fa-check"></i> All 3 Dashboards</li>
+          <li class="included"><i class="fas fa-check"></i> Unlimited Inventory</li>
+          <li class="included"><i class="fas fa-check"></i> AI Crop Recommendations</li>
+          <li class="included"><i class="fas fa-check"></i> ML Yield Prediction</li>
+          <li class="included"><i class="fas fa-check"></i> Route Optimization</li>
+          <li class="included"><i class="fas fa-check"></i> Financial Analytics</li>
+          <li class="excluded"><i class="fas fa-times"></i> API Access</li>
+          <li class="excluded"><i class="fas fa-times"></i> Dedicated Manager</li>
+        </ul>
+        <button class="plan-btn plan-btn-primary">Upgrade to Pro →</button>
+      </div>
+
+      <!-- ENTERPRISE PLAN -->
+      <div class="pricing-card">
+        <div class="pricing-card-header">
+          <div class="plan-icon">🏢</div>
+          <h3>Enterprise</h3>
+          <p class="plan-desc">For large-scale agri-businesses</p>
+        </div>
+        <div class="plan-price">
+          <span class="currency">$</span>
+          <span class="amount" data-monthly="99" data-yearly="79">99</span>
+          <span class="period">/month</span>
+        </div>
+        <ul class="plan-features">
+          <li class="included"><i class="fas fa-check"></i> Everything in Pro</li>
+          <li class="included"><i class="fas fa-check"></i> API Access</li>
+          <li class="included"><i class="fas fa-check"></i> Custom Integrations</li>
+          <li class="included"><i class="fas fa-check"></i> Multi-team Access</li>
+          <li class="included"><i class="fas fa-check"></i> Dedicated Account Mgr</li>
+          <li class="included"><i class="fas fa-check"></i> White-label Reports</li>
+          <li class="included"><i class="fas fa-check"></i> 99.9% SLA Uptime</li>
+          <li class="included"><i class="fas fa-check"></i> 24/7 Phone Support</li>
+        </ul>
+        <button class="plan-btn plan-btn-outline">Contact Sales →</button>
+      </div>
+
+    </div>
+
+    <!-- Trust Bar -->
+    <div class="plus-trust">
+      <div class="trust-item">🔒 Secured Payments</div>
+      <div class="trust-item">📦 Cancel Anytime</div>
+      <div class="trust-item">💬 24/7 Support</div>
+      <div class="trust-item">🌍 Used by 10,000+ Farmers</div>
+    </div>
+
+  </div>
+</div>
+
+<script src="/script.js"></script>
+
+</body>
+</html>
