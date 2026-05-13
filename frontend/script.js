@@ -1,7 +1,7 @@
 /* =====================================================
    AUTH REDIRECT (PROTECT INDEX)
 ===================================================== */
-alert("Welcome to AgriChain!")
+// App initialized
 // ================= PAGE LOAD ANIMATION =================
 window.addEventListener("load", () => {
   const page = document.querySelector(".page");
@@ -22,60 +22,36 @@ window.addEventListener("load", () => {
     }
   }, 1000); // delay for effect
 });
-if (
-  window.location.pathname.includes("index.html") &&
-  localStorage.getItem("loggedIn") !== "true"
-) {
-  window.location.href = "auth.html";
-}
+// Auth redirect handled in setupUserUI
 
 /* =====================================================
    GLOBAL DASHBOARD SWITCH (MUST BE GLOBAL)
 ===================================================== */
 window.switchRole = function (role) {
-
   console.log("Switching role:", role);
 
-  // Navbar active
-  document.querySelectorAll(".nav-link").forEach(link => {
-    link.classList.remove("active");
-  });
+  // Sidebar active
+  document.querySelectorAll(".menu-item").forEach(btn => btn.classList.remove("active"));
+  const sidebarMap = { farmer: 0, transporter: 1, vendor: 2 };
+  document.querySelectorAll(".menu-section")[0]?.querySelectorAll(".menu-item")[sidebarMap[role]]?.classList.add("active");
 
-  if (role === "farmer") document.querySelectorAll(".nav-link")[0]?.classList.add("active");
-  if (role === "transporter") document.querySelectorAll(".nav-link")[1]?.classList.add("active");
-  if (role === "vendor") document.querySelectorAll(".nav-link")[2]?.classList.add("active");
+  // Navbar active
+  document.querySelectorAll(".nav-link").forEach(link => link.classList.remove("active"));
+  document.querySelectorAll(".nav-link")[sidebarMap[role]]?.classList.add("active");
 
   // Hero tabs active
-  document.querySelectorAll(".tab").forEach(tab => {
-    tab.classList.remove("active");
-  });
-
-  if (role === "farmer") document.querySelectorAll(".tab")[0]?.classList.add("active");
-  if (role === "transporter") document.querySelectorAll(".tab")[1]?.classList.add("active");
-  if (role === "vendor") document.querySelectorAll(".tab")[2]?.classList.add("active");
+  document.querySelectorAll(".tab").forEach(tab => tab.classList.remove("active"));
+  document.querySelectorAll(".tab")[sidebarMap[role]]?.classList.add("active");
 
   // Hide all dashboards
-  document.querySelectorAll(".dashboard").forEach(d => {
-    d.classList.remove("active-dashboard");
-  });
+  document.querySelectorAll(".dashboard").forEach(d => d.classList.remove("active-dashboard"));
 
-  // Show selected dashboard
-  if (role === "farmer") {
-    document.getElementById("farmer-dashboard")?.classList.add("active-dashboard");
-  }
-
-  if (role === "transporter") {
-    document.getElementById("transporter-dashboard")?.classList.add("active-dashboard");
-  }
-
-  if (role === "vendor") {
-    document.getElementById("vendor-dashboard")?.classList.add("active-dashboard");
-  }
+  // Show selected
+  document.getElementById(role + "-dashboard")?.classList.add("active-dashboard");
 
   // Scroll into view
   setTimeout(() => {
-    document.querySelector(".dashboard-container")
-      ?.scrollIntoView({ behavior: "smooth" });
+    document.querySelector(".dashboard-container")?.scrollIntoView({ behavior: "smooth" });
   }, 120);
 };
 
@@ -164,8 +140,8 @@ window.toggleAuth = function () {
   loginForm.classList.toggle("hidden");
   signupForm.classList.toggle("hidden");
 
-  title.textContent = isLogin ? "Create your AgriChain account" : "Login to AgriChain Pro";
-  sub.textContent = isLogin ? "Start managing your supply chain" : "Access your dashboard";
+  title.textContent = isLogin ? "Create Account" : "Welcome Back";
+  sub.textContent = isLogin ? "Join AgriChain Pro today" : "Sign in to access your dashboard";
   toggleText.textContent = isLogin ? "Already have an account?" : "Don’t have an account?";
 };
 
@@ -428,12 +404,7 @@ if (signupForm) {
 
 
 // ================= PROTECT DASHBOARD =================
-if (
-  window.location.pathname === "/" &&
-  localStorage.getItem("loggedIn") !== "true"
-) {
-  window.location.replace("/login");
-}
+// Auth redirect handled in setupUserUI
 // ================= SHOW USER INFO =================
 const userData = JSON.parse(localStorage.getItem("user"));
 
@@ -461,31 +432,8 @@ navLinks.forEach(link => {
     link.classList.add("active");
   });
 });
-function switchRole(role) {
-
-  // remove active from sidebar
-  document.querySelectorAll(".menu-item").forEach(btn => {
-    btn.classList.remove("active");
-  });
-
-  // highlight clicked
-  event.target.classList.add("active");
-
-  // hide all dashboards
-  document.querySelectorAll(".dashboard").forEach(d => {
-    d.classList.remove("active-dashboard");
-  });
-
-  // show selected dashboard
-  document.getElementById(role + "-dashboard").classList.add("active-dashboard");
-}
-function goToLogin() {
-  window.location.href = "/auth.html";
-}
-
-function goToSignup() {
-  window.location.href = "/auth.html";
-}
+// switchRole is defined via window.switchRole above
+// goToLogin/goToSignup defined above
 /* ================= PARTICLE GENERATOR ================= */
 
 const particleContainer = document.querySelector(".particles");

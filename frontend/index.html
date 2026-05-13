@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>AgriChain Pro</title>
+  <meta name="description" content="AgriChain Pro — AI-powered agricultural supply chain platform for farmers, transporters, and vendors."/>
 
   <link rel="stylesheet" href="/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -33,7 +34,7 @@
     <div class="menu-section">
       <p class="menu-title">PAGES</p>
 
-      <button class="menu-item" onclick="switchRole('vendor')">🏪 Paymnet</button>
+      <button class="menu-item" onclick="switchRole('vendor')">🏪 Payment</button>
       <button class="menu-item">🤖 AI Assistant</button>
     </div>
 
@@ -312,6 +313,26 @@
   <!-- ================= TRANSPORT DASHBOARD ================= -->
   <div id="transporter-dashboard" class="dashboard">
     <section class="section window" id="transport">
+
+      <!-- STATS -->
+      <div class="stats">
+        <div class="card">
+          <h4>Active Routes</h4>
+          <h2 class="green">3</h2>
+          <span class="green">2 in transit</span>
+        </div>
+        <div class="card">
+          <h4>Total Distance</h4>
+          <h2>155 km</h2>
+          <span>Across all routes</span>
+        </div>
+        <div class="card">
+          <h4>Fleet Utilization</h4>
+          <h2 class="blue">78%</h2>
+          <span>5 of 7 vehicles active</span>
+        </div>
+      </div>
+
       <div class="section-header">
         <div>
           <h2>Route Management</h2>
@@ -353,6 +374,37 @@
         <div>
           <p>🚛 3,200 kg Jute</p>
           <button class="start-btn" onclick="navigateRoute('RT003')">🧭 Navigate</button>
+        </div>
+      </div>
+
+      <!-- DELIVERY TIMELINE -->
+      <div class="section-header" style="margin-top:30px;">
+        <h2>📦 Delivery Timeline</h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot active"></div>
+          <div class="timeline-content">
+            <h4>Pickup Completed</h4>
+            <p>Hooghly Rice Farm — 2,500 kg loaded</p>
+            <span class="timeline-time">Today, 6:30 AM</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot active"></div>
+          <div class="timeline-content">
+            <h4>In Transit</h4>
+            <p>En route to Sealdah Wholesale Market</p>
+            <span class="timeline-time">Today, 7:15 AM</span>
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"></div>
+          <div class="timeline-content">
+            <h4>Delivery Expected</h4>
+            <p>Estimated arrival at destination</p>
+            <span class="timeline-time">Today, 8:45 AM</span>
+          </div>
         </div>
       </div>
     </section>
