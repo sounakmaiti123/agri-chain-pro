@@ -1,1 +1,61 @@
+# ==============================
+# Python
+# ==============================
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# Flask
+instance/
+.webassets-cache
+
+# Environment Variables
 .env
+
+# VS Code
+.vscode/
+
+# Mac / Windows
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# ==============================
+# Node / Frontend
+# ==============================
+node_modules/
+dist/
+build/
+
+# ==============================
+# Temporary Files
+# ==============================
+*.tmp
+*.bak
+*.swp
+
+# ==============================
+# Pytest / Coverage
+# ==============================
+.pytest_cache/
+.coverage
+htmlcov/
+
+# ==============================
+# Database
+# ==============================
+*.sqlite3
+*.db
+
+# ==============================
+# Uploads
+# ==============================
+uploads/
