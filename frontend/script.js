@@ -29,19 +29,6 @@ window.addEventListener("load", () => {
     page.classList.add("active");
   }
 });
-// ================= REMOVE LOADER =================
-window.addEventListener("load", () => {
-  const loader = document.getElementById("loader");
-
-  setTimeout(() => {
-    if (loader) {
-      loader.style.opacity = "0";
-      loader.style.transition = "opacity 0.5s ease";
-
-      setTimeout(() => loader.remove(), 500);
-    }
-  }, 1000); // delay for effect
-});
 // Auth redirect handled in setupUserUI
 
 /* =====================================================
@@ -52,7 +39,7 @@ window.switchRole = function (role) {
 
   // Sidebar active
   document.querySelectorAll(".menu-item").forEach(btn => btn.classList.remove("active"));
-  const sidebarMap = { farmer: 0, transporter: 1, vendor: 2 };
+  const sidebarMap = { farmer: 0, transporter: 1, vendor: 2, "plus-core": 3 };
   document.querySelectorAll(".menu-section")[0]?.querySelectorAll(".menu-item")[sidebarMap[role]]?.classList.add("active");
 
   // Navbar active
@@ -647,8 +634,13 @@ function openPlusModal() {
   document.getElementById('plusModal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
 
-  // Initialize charts after modal is visible
-  setTimeout(() => initPlusCharts(), 100);
+  // Initialize charts after modal layout has fully stabilized during fade-in transition
+  setTimeout(() => {
+    initPlusCharts();
+    // Force resize to ensure canvases fill containers beautifully
+    if (plusCommodityChart) plusCommodityChart.resize();
+    if (plusROIChart) plusROIChart.resize();
+  }, 380);
 }
 
 function closePlusModal() {
@@ -658,6 +650,17 @@ function closePlusModal() {
   // Destroy charts to prevent canvas reuse errors
   if (plusCommodityChart) { plusCommodityChart.destroy(); plusCommodityChart = null; }
   if (plusROIChart) { plusROIChart.destroy(); plusROIChart = null; }
+}
+
+function activateProPlus() {
+  closePlusModal();
+  // Automatically switch view to the newly built Pro+ Enterprise Hub
+  switchRole('plus-core');
+  
+  // Show a premium visual confirmation alert
+  setTimeout(() => {
+    alert("👑 AgriChain Pro+ Enterprise Core Unlocked!\n\nAll real-time platform telemetry modules, multi-spectral satellite sensors, and international arbitrage smart dispatch pipelines are now fully initialized.");
+  }, 400);
 }
 
 function initPlusCharts() {
@@ -705,6 +708,7 @@ function initPlusCharts() {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: { display: false }
         },
@@ -754,6 +758,7 @@ function initPlusCharts() {
       },
       options: {
         responsive: true,
+        maintainAspectRatio: false,
         plugins: {
           legend: { display: false }
         },
@@ -817,3 +822,123 @@ function animatePrice(el, target) {
     }
   }, 20);
 }
+
+/* =====================================================
+   PRO+ PREMIUM CORE INTERACTIVE HANDLERS
+===================================================== */
+
+// Trigger live mock satellite map scan
+window.triggerSatelliteScan = function () {
+  const laser = document.getElementById("satelliteLaser");
+  const metricsList = document.getElementById("scanMetricsList");
+  const btn = document.querySelector(".scan-trigger-btn");
+
+  if (!laser || !metricsList || !btn) return;
+
+  // Disable button temporarily
+  btn.disabled = true;
+  btn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Scanning Grid...`;
+  laser.classList.add("scanning");
+
+  // Randomize mock metrics slightly for dynamic interactive feel
+  setTimeout(() => {
+    laser.classList.remove("scanning");
+    btn.disabled = false;
+    btn.innerHTML = `<i class="fas fa-satellite-dish"></i> Run Live Scan`;
+
+    // Generate fresh simulated numbers
+    const nSat = Math.floor(Math.random() * 30) + 45; // 45 - 75%
+    const cDen = Math.floor(Math.random() * 20) + 75; // 75 - 95%
+    
+    // Update metric list display with multi-state logic
+    metricsList.innerHTML = `
+      <div class="metric-row">
+        <span>Soil Salinity</span>
+        <div class="bar-track"><div class="bar-fill green-fill" style="width:22%"></div></div>
+        <strong>Optimal (Safe)</strong>
+      </div>
+      <div class="metric-row">
+        <span>Nitrogen Saturation</span>
+        <div class="bar-track"><div class="bar-fill ${nSat < 55 ? 'yellow-fill' : 'green-fill'}" style="width:${nSat}%"></div></div>
+        <strong>${nSat}% (${nSat < 55 ? 'Top-up Advised' : 'Optimal'})</strong>
+      </div>
+      <div class="metric-row">
+        <span>Chlorophyll Density</span>
+        <div class="bar-track"><div class="bar-fill blue-fill" style="width:${cDen}%"></div></div>
+        <strong>${cDen}% (Outstanding)</strong>
+      </div>
+    `;
+
+    // Highlight recommendation box
+    const recBox = document.querySelector(".ai-recommendation-box");
+    if (recBox) {
+      recBox.style.transition = "all 0.3s ease";
+      recBox.style.transform = "scale(1.02)";
+      recBox.style.boxShadow = "0 0 20px rgba(0,255,170,0.3)";
+      setTimeout(() => {
+        recBox.style.transform = "scale(1)";
+        recBox.style.boxShadow = "none";
+      }, 600);
+    }
+  }, 2500);
+};
+
+// Dynamic Carbon Credits Offset Monetization Calculator
+window.updateCarbonCredits = function (val, type) {
+  if (type === 'acreage') {
+    document.getElementById("acreageVal").textContent = val + " Acres";
+  } else if (type === 'duration') {
+    document.getElementById("durationVal").textContent = val + (val == 1 ? " Year" : " Years");
+  }
+
+  // Compute combined payout estimate
+  // Base offset ≈ 1.5 tons per acre/year * multi-year cumulative bonus factor
+  const acres = parseInt(document.getElementById("acreageVal").textContent);
+  const years = parseInt(document.getElementById("durationVal").textContent);
+  
+  // Custom bonus coefficient formula
+  const totalTons = Math.round(acres * 1.5 * (1 + (years - 1) * 0.1));
+  const ratePerTon = 30; // $30/ton standard contract floor
+  const payout = totalTons * ratePerTon;
+
+  const amountDisplay = document.getElementById("carbonPayoutAmount");
+  const detailsDisplay = document.querySelector(".payout-details");
+
+  if (amountDisplay && detailsDisplay) {
+    amountDisplay.textContent = "$" + payout.toLocaleString();
+    detailsDisplay.innerHTML = `
+      <span><b>${totalTons.toLocaleString()} Metric Tons</b> CO2 Eq. Offset</span>
+      <span>Rate: <b>$${ratePerTon} / Ton</b></span>
+    `;
+  }
+};
+
+window.claimCarbonCredits = function () {
+  alert("🌱 Ledger Request Initiated!\n\nSmart contract verified via regenerative compliance nodes. Offset certificates tokenized and payout transaction queued for direct multi-currency disbursement.");
+};
+
+window.toggleAutoDrip = function (cb) {
+  const bar = document.getElementById("dripStatusBar");
+  if (!bar) return;
+
+  if (cb.checked) {
+    bar.innerHTML = `<i class="fas fa-tint"></i> Autonomous link active. Next scheduled flush bypassed due to adequate root moisture.`;
+    bar.style.color = "#00ffaa";
+    bar.style.backgroundColor = "rgba(0,255,170,0.06)";
+    bar.style.borderColor = "rgba(0,255,170,0.15)";
+  } else {
+    bar.innerHTML = `<i class="fas fa-exclamation-triangle"></i> Autonomous link suspended. System switched to manual overrides.`;
+    bar.style.color = "#f0ad4e";
+    bar.style.backgroundColor = "rgba(240,173,78,0.06)";
+    bar.style.borderColor = "rgba(240,173,78,0.15)";
+  }
+};
+
+window.toggleArbitrageBid = function (dest, cb) {
+  if (cb.checked) {
+    console.log(`Auto-Bid active for ${dest} cross-border spread matrix.`);
+  } else {
+    console.log(`Auto-Bid trigger deactivated for ${dest}.`);
+  }
+};
+

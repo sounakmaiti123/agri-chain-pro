@@ -29,6 +29,7 @@
      <button class="menu-item active" onclick="switchRole('farmer')">🚜 Farmer</button>
 <button class="menu-item" onclick="switchRole('transporter')">🚚 Transporter</button>
 <button class="menu-item" onclick="switchRole('vendor')">🏪 Vendor</button>
+<button class="menu-item plus-hub-btn" onclick="switchRole('plus-core')">👑 Pro+ Hub</button>
     </div>
 
     <div class="menu-section">
@@ -44,11 +45,6 @@
     <div class="top-actions" id="authActions"></div>
    
   <div class="page">
-    <div id="loader">
-  <div class="loader-content">
-    🌱 <span>AgriChain Pro</span>
-  </div>
-</div>
 
 <!-- ================= HERO ================= -->
 <section class="hero" id="dashboard">
@@ -60,6 +56,7 @@
     <button class="tab active" onclick="switchRole('farmer')">🚜 Farmer</button>
     <button class="tab" onclick="switchRole('transporter')">🚚 Transporter</button>
     <button class="tab" onclick="switchRole('vendor')">🏪 Vendor</button>
+    <button class="tab plus-hub-tab" onclick="switchRole('plus-core')">👑 Pro+ Hub</button>
   </div>
 </section>
 
@@ -531,6 +528,280 @@
 
 </div>
 
+  <!-- ================= PRO+ PREMIUM CORE DASHBOARD ================= -->
+  <div id="plus-core-dashboard" class="dashboard plus-core-portal">
+    <section class="section window plus-core-window">
+      
+      <!-- HEADER BANNER -->
+      <div class="plus-portal-header">
+        <div class="plus-portal-title">
+          <span class="plus-portal-icon">👑</span>
+          <div>
+            <h2>AgriChain Pro+ Enterprise Core</h2>
+            <p>Advanced real-time platform telemetry, satellite intelligence, and automated arbitrage</p>
+          </div>
+        </div>
+        <div class="plus-live-pulse">
+          <span class="pulse-ring"></span>
+          <span class="pulse-text">AI CORE ONLINE</span>
+        </div>
+      </div>
+
+      <!-- PREMIUM CORE STATS -->
+      <div class="stats plus-core-stats">
+        <div class="card plus-stat-card">
+          <div class="stat-top">
+            <h4>Global Smart Contracts</h4>
+            <i class="fas fa-file-contract stat-icon-glow"></i>
+          </div>
+          <h2>24 Active</h2>
+          <span class="green"><i class="fas fa-check-circle"></i> Automated ledger settlement</span>
+        </div>
+
+        <div class="card plus-stat-card">
+          <div class="stat-top">
+            <h4>AI Fleet Co-pilot</h4>
+            <i class="fas fa-microchip stat-icon-glow blue"></i>
+          </div>
+          <h2 class="blue">⚡ Optimized</h2>
+          <span>Real-time autonomous route adjustments</span>
+        </div>
+
+        <div class="card plus-stat-card">
+          <div class="stat-top">
+            <h4>Carbon Credits Earned</h4>
+            <i class="fas fa-leaf stat-icon-glow purple"></i>
+          </div>
+          <h2 class="purple">142.5 Tons</h2>
+          <span class="green">≈ $4,275 direct payout value</span>
+        </div>
+      </div>
+
+      <!-- SATELLITE CROP INTELLIGENCE -->
+      <div class="plus-module-card">
+        <div class="plus-module-header">
+          <div>
+            <h3>🛰️ Satellite Crop Intelligence (NDVI & Soil Scan)</h3>
+            <p>Multi-spectral remote sensing for immediate crop stress and moisture density detection</p>
+          </div>
+          <button class="plus-action-btn scan-trigger-btn" onclick="triggerSatelliteScan()">
+            <i class="fas fa-satellite-dish"></i> Run Live Scan
+          </button>
+        </div>
+
+        <!-- Visual Map Display -->
+        <div class="satellite-display-area">
+          <div class="satellite-map-mock">
+            <div class="farm-grid-overlay">
+              <div class="farm-plot plot-optimal">
+                <span>Plot Alpha</span>
+                <small>NDVI: 0.82</small>
+                <div class="plot-status">Optimal</div>
+              </div>
+              <div class="farm-plot plot-warning">
+                <span>Plot Beta</span>
+                <small>NDVI: 0.54</small>
+                <div class="plot-status">Low Moisture</div>
+              </div>
+              <div class="farm-plot plot-optimal">
+                <span>Plot Gamma</span>
+                <small>NDVI: 0.79</small>
+                <div class="plot-status">Optimal</div>
+              </div>
+              <div class="farm-plot plot-alert">
+                <span>Plot Delta</span>
+                <small>NDVI: 0.41</small>
+                <div class="plot-status">Nitrogen Deficit</div>
+              </div>
+            </div>
+            <!-- Animated Scan Line -->
+            <div class="scan-laser" id="satelliteLaser"></div>
+          </div>
+
+          <!-- Scan Analysis Panel -->
+          <div class="scan-analysis-panel">
+            <h4>Latest Scan Results</h4>
+            <div class="scan-metrics-list" id="scanMetricsList">
+              <div class="metric-row">
+                <span>Soil Salinity</span>
+                <div class="bar-track"><div class="bar-fill green-fill" style="width:25%"></div></div>
+                <strong>Low (Safe)</strong>
+              </div>
+              <div class="metric-row">
+                <span>Nitrogen Saturation</span>
+                <div class="bar-track"><div class="bar-fill yellow-fill" style="width:60%"></div></div>
+                <strong>60% (Action req.)</strong>
+              </div>
+              <div class="metric-row">
+                <span>Chlorophyll Density</span>
+                <div class="bar-track"><div class="bar-fill blue-fill" style="width:85%"></div></div>
+                <strong>85% (Excellent)</strong>
+              </div>
+            </div>
+            <div class="ai-recommendation-box">
+              <i class="fas fa-robot"></i>
+              <div>
+                <strong>AI Prescription:</strong> Trigger targeted nitrogen-fertigation on Plot Delta via central drip grid.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TWO COLUMN ADVANCED MODULES -->
+      <div class="plus-grid-2">
+        
+        <!-- Predictive Weather Radar -->
+        <div class="plus-module-card">
+          <div class="plus-module-header">
+            <div>
+              <h3>🌦️ Microclimate Radar & Auto-Drip</h3>
+              <p>Hyper-local weather grid & IoT sensor link</p>
+            </div>
+            <span class="plus-live-badge">IoT Linked</span>
+          </div>
+          
+          <div class="radar-content">
+            <div class="weather-metrics">
+              <div class="w-metric">
+                <small>Soil Temp</small>
+                <strong>22.4°C</strong>
+              </div>
+              <div class="w-metric">
+                <small>Evapotranspiration</small>
+                <strong>4.2 mm/d</strong>
+              </div>
+              <div class="w-metric">
+                <small>Precip. Prob (next 6h)</small>
+                <strong>12%</strong>
+              </div>
+            </div>
+
+            <!-- Automation Link -->
+            <div class="automation-toggle-row">
+              <div>
+                <strong>Autonomous Drip Irrigation Link</strong>
+                <p>Auto-triggers water flow when soil moisture drops below threshold</p>
+              </div>
+              <label class="custom-toggle">
+                <input type="checkbox" checked onchange="toggleAutoDrip(this)">
+                <span class="toggle-slider"></span>
+              </label>
+            </div>
+            <div class="drip-status-bar" id="dripStatusBar">
+              <i class="fas fa-tint"></i> Autonomous link active. Next scheduled flush bypassed due to adequate root moisture.
+            </div>
+          </div>
+        </div>
+
+        <!-- Global Arbitrage Engine -->
+        <div class="plus-module-card">
+          <div class="plus-module-header">
+            <div>
+              <h3>🌐 Global Arbitrage & Auto-Bid</h3>
+              <p>Real-time international crop export spread queues</p>
+            </div>
+            <span class="plus-live-badge purple-badge">Live Spreads</span>
+          </div>
+
+          <div class="arbitrage-table-wrap">
+            <table class="arbitrage-table">
+              <thead>
+                <tr>
+                  <th>Destination</th>
+                  <th>Spread vs Local</th>
+                  <th>Auto-Bid</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>🇳🇱 Rotterdam Port</td>
+                  <td class="green">+$0.45 /kg</td>
+                  <td>
+                    <label class="custom-toggle toggle-sm">
+                      <input type="checkbox" checked onchange="toggleArbitrageBid('Rotterdam', this)">
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>🇺🇸 Chicago Mercantile</td>
+                  <td class="green">+$0.28 /kg</td>
+                  <td>
+                    <label class="custom-toggle toggle-sm">
+                      <input type="checkbox" onchange="toggleArbitrageBid('Chicago', this)">
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </td>
+                </tr>
+                <tr>
+                  <td>🇯🇵 Tokyo Exchange</td>
+                  <td class="green">+$0.62 /kg</td>
+                  <td>
+                    <label class="custom-toggle toggle-sm">
+                      <input type="checkbox" checked onchange="toggleArbitrageBid('Tokyo', this)">
+                      <span class="toggle-slider"></span>
+                    </label>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="arbitrage-footer-note">
+            <i class="fas fa-info-circle"></i> Auto-Bid directly executes pre-negotiated smart forward contracts when target spread is maintained for >15 minutes.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- CARBON CREDIT TRACKER -->
+      <div class="plus-module-card carbon-credit-module">
+        <div class="plus-module-header">
+          <div>
+            <h3>🌿 Carbon Credit Monetization Engine</h3>
+            <p>Tokenize your regenerative agriculture practices for instant institutional carbon payouts</p>
+          </div>
+          <div class="payout-pill">
+            Payout Pool: <strong class="green">$1.2M</strong> Available
+          </div>
+        </div>
+
+        <div class="carbon-calculator-content">
+          <div class="carbon-sliders">
+            <div class="c-slider-group">
+              <div class="c-slider-head">
+                <span>Regenerative Acreage Active</span>
+                <strong id="acreageVal">120 Acres</strong>
+              </div>
+              <input type="range" min="10" max="1000" value="120" class="premium-slider" oninput="updateCarbonCredits(this.value, 'acreage')">
+            </div>
+
+            <div class="c-slider-group" style="margin-top:20px;">
+              <div class="c-slider-head">
+                <span>No-Till / Cover Crop Duration</span>
+                <strong id="durationVal">3 Years</strong>
+              </div>
+              <input type="range" min="1" max="10" value="3" class="premium-slider purple-slider" oninput="updateCarbonCredits(this.value, 'duration')">
+            </div>
+          </div>
+
+          <div class="carbon-payout-display">
+            <small>Estimated Annual Carbon Offset Payout</small>
+            <div class="payout-amount" id="carbonPayoutAmount">$5,400</div>
+            <div class="payout-details">
+              <span><b>180 Metric Tons</b> CO2 Eq. Offset</span>
+              <span>Rate: <b>$30 / Ton</b></span>
+            </div>
+            <button class="plus-action-btn payout-claim-btn" onclick="claimCarbonCredits()">
+              <i class="fas fa-hand-holding-usd"></i> Claim Payout via Smart Ledger
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </section>
+  </div>
+
 </div>
 </div>
 <!-- ================= PREMIUM FOOTER ================= -->
@@ -702,7 +973,7 @@
           <li class="excluded"><i class="fas fa-lock"></i> Route Optimization</li>
           <li class="excluded"><i class="fas fa-lock"></i> Priority Support</li>
         </ul>
-        <button class="plan-btn plan-btn-outline">Current Plan</button>
+        <button class="plan-btn plan-btn-outline" onclick="activateProPlus()">Get Now</button>
       </div>
 
       <!-- PRO PLAN (FEATURED) -->
@@ -728,8 +999,8 @@
           <li class="included"><i class="fas fa-check-circle"></i> Financial Analytics</li>
           <li class="included"><i class="fas fa-check-circle"></i> Email Support</li>
         </ul>
-        <button class="plan-btn plan-btn-primary">
-          <i class="fas fa-rocket"></i> Upgrade to Pro
+        <button class="plan-btn plan-btn-primary" onclick="activateProPlus()">
+          <i class="fas fa-rocket"></i> Get Now
         </button>
       </div>
 
@@ -755,7 +1026,7 @@
           <li class="included"><i class="fas fa-check-circle"></i> 99.9% SLA Uptime</li>
           <li class="included"><i class="fas fa-check-circle"></i> 24/7 Phone + Chat Support</li>
         </ul>
-        <button class="plan-btn plan-btn-outline">Contact Sales →</button>
+        <button class="plan-btn plan-btn-outline" onclick="activateProPlus()">Get Now →</button>
       </div>
 
     </div>
