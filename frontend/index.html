@@ -624,19 +624,48 @@
 
 </div>
 
-<!-- ================= GET PLUS MODAL ================= -->
+<!-- ================= SUPER PREMIUM GET PLUS DASHBOARD ================= -->
 <div id="plusModal" class="plus-overlay hidden">
   <div class="plus-backdrop" onclick="closePlusModal()"></div>
   <div class="plus-container">
 
     <!-- Close Button -->
-    <button class="plus-close" onclick="closePlusModal()">✕</button>
+    <button class="plus-close" onclick="closePlusModal()">
+      <i class="fas fa-times"></i>
+    </button>
 
-    <!-- Header -->
+    <!-- Floating Glow Particles -->
+    <div class="plus-glow-orb plus-orb-1"></div>
+    <div class="plus-glow-orb plus-orb-2"></div>
+
+    <!-- ====== HEADER ====== -->
     <div class="plus-header">
-      <span class="plus-badge-label">✨ UPGRADE</span>
-      <h1 class="plus-title">Unlock the Full Power of <span>AgriChain Pro</span></h1>
-      <p class="plus-subtitle">Choose the plan that fits your agricultural business</p>
+      <div class="plus-badge-label"><i class="fas fa-crown"></i> PREMIUM</div>
+      <h1 class="plus-title">Unlock <span>AgriChain Pro+</span></h1>
+      <p class="plus-subtitle">Supercharge your agricultural business with premium AI analytics, real-time market data, and advanced supply chain tools</p>
+
+      <!-- Live Stats Bar -->
+      <div class="plus-live-stats">
+        <div class="plus-stat">
+          <span class="plus-stat-value">10,000+</span>
+          <span class="plus-stat-label">Active Farmers</span>
+        </div>
+        <div class="plus-stat-divider"></div>
+        <div class="plus-stat">
+          <span class="plus-stat-value">₹2.4Cr</span>
+          <span class="plus-stat-label">Revenue Generated</span>
+        </div>
+        <div class="plus-stat-divider"></div>
+        <div class="plus-stat">
+          <span class="plus-stat-value">98.7%</span>
+          <span class="plus-stat-label">Uptime SLA</span>
+        </div>
+        <div class="plus-stat-divider"></div>
+        <div class="plus-stat">
+          <span class="plus-stat-value">4.9★</span>
+          <span class="plus-stat-label">User Rating</span>
+        </div>
+      </div>
 
       <!-- Billing Toggle -->
       <div class="billing-toggle">
@@ -648,13 +677,13 @@
       </div>
     </div>
 
-    <!-- Pricing Cards -->
+    <!-- ====== PRICING CARDS ====== -->
     <div class="pricing-grid">
 
-      <!-- FREE PLAN -->
+      <!-- STARTER PLAN -->
       <div class="pricing-card">
         <div class="pricing-card-header">
-          <div class="plan-icon">🌱</div>
+          <div class="plan-icon-wrap starter-icon"><i class="fas fa-seedling"></i></div>
           <h3>Starter</h3>
           <p class="plan-desc">For individual farmers getting started</p>
         </div>
@@ -664,23 +693,23 @@
           <span class="period">/month</span>
         </div>
         <ul class="plan-features">
-          <li class="included"><i class="fas fa-check"></i> 1 Dashboard</li>
-          <li class="included"><i class="fas fa-check"></i> Basic Crop Tracking</li>
-          <li class="included"><i class="fas fa-check"></i> 3 Inventory Items</li>
-          <li class="excluded"><i class="fas fa-times"></i> AI Recommendations</li>
-          <li class="excluded"><i class="fas fa-times"></i> ML Yield Prediction</li>
-          <li class="excluded"><i class="fas fa-times"></i> Route Optimization</li>
-          <li class="excluded"><i class="fas fa-times"></i> Analytics Dashboard</li>
-          <li class="excluded"><i class="fas fa-times"></i> Priority Support</li>
+          <li class="included"><i class="fas fa-check-circle"></i> 1 Dashboard</li>
+          <li class="included"><i class="fas fa-check-circle"></i> Basic Crop Tracking</li>
+          <li class="included"><i class="fas fa-check-circle"></i> 3 Inventory Items</li>
+          <li class="excluded"><i class="fas fa-lock"></i> AI Recommendations</li>
+          <li class="excluded"><i class="fas fa-lock"></i> ML Yield Prediction</li>
+          <li class="excluded"><i class="fas fa-lock"></i> Market Price Charts</li>
+          <li class="excluded"><i class="fas fa-lock"></i> Route Optimization</li>
+          <li class="excluded"><i class="fas fa-lock"></i> Priority Support</li>
         </ul>
         <button class="plan-btn plan-btn-outline">Current Plan</button>
       </div>
 
       <!-- PRO PLAN (FEATURED) -->
       <div class="pricing-card featured">
-        <div class="popular-badge">🔥 Most Popular</div>
+        <div class="popular-badge"><i class="fas fa-fire"></i> Most Popular</div>
         <div class="pricing-card-header">
-          <div class="plan-icon">⚡</div>
+          <div class="plan-icon-wrap pro-icon"><i class="fas fa-bolt"></i></div>
           <h3>Pro</h3>
           <p class="plan-desc">For serious farmers & transporters</p>
         </div>
@@ -690,22 +719,24 @@
           <span class="period">/month</span>
         </div>
         <ul class="plan-features">
-          <li class="included"><i class="fas fa-check"></i> All 3 Dashboards</li>
-          <li class="included"><i class="fas fa-check"></i> Unlimited Inventory</li>
-          <li class="included"><i class="fas fa-check"></i> AI Crop Recommendations</li>
-          <li class="included"><i class="fas fa-check"></i> ML Yield Prediction</li>
-          <li class="included"><i class="fas fa-check"></i> Route Optimization</li>
-          <li class="included"><i class="fas fa-check"></i> Financial Analytics</li>
-          <li class="excluded"><i class="fas fa-times"></i> API Access</li>
-          <li class="excluded"><i class="fas fa-times"></i> Dedicated Manager</li>
+          <li class="included"><i class="fas fa-check-circle"></i> All 3 Dashboards</li>
+          <li class="included"><i class="fas fa-check-circle"></i> Unlimited Inventory</li>
+          <li class="included"><i class="fas fa-check-circle"></i> AI Crop Recommendations</li>
+          <li class="included"><i class="fas fa-check-circle"></i> ML Yield Prediction</li>
+          <li class="included highlight"><i class="fas fa-chart-line"></i> Live Market Price Charts</li>
+          <li class="included"><i class="fas fa-check-circle"></i> Route Optimization</li>
+          <li class="included"><i class="fas fa-check-circle"></i> Financial Analytics</li>
+          <li class="included"><i class="fas fa-check-circle"></i> Email Support</li>
         </ul>
-        <button class="plan-btn plan-btn-primary">Upgrade to Pro →</button>
+        <button class="plan-btn plan-btn-primary">
+          <i class="fas fa-rocket"></i> Upgrade to Pro
+        </button>
       </div>
 
       <!-- ENTERPRISE PLAN -->
       <div class="pricing-card">
         <div class="pricing-card-header">
-          <div class="plan-icon">🏢</div>
+          <div class="plan-icon-wrap enterprise-icon"><i class="fas fa-building"></i></div>
           <h3>Enterprise</h3>
           <p class="plan-desc">For large-scale agri-businesses</p>
         </div>
@@ -715,26 +746,179 @@
           <span class="period">/month</span>
         </div>
         <ul class="plan-features">
-          <li class="included"><i class="fas fa-check"></i> Everything in Pro</li>
-          <li class="included"><i class="fas fa-check"></i> API Access</li>
-          <li class="included"><i class="fas fa-check"></i> Custom Integrations</li>
-          <li class="included"><i class="fas fa-check"></i> Multi-team Access</li>
-          <li class="included"><i class="fas fa-check"></i> Dedicated Account Mgr</li>
-          <li class="included"><i class="fas fa-check"></i> White-label Reports</li>
-          <li class="included"><i class="fas fa-check"></i> 99.9% SLA Uptime</li>
-          <li class="included"><i class="fas fa-check"></i> 24/7 Phone Support</li>
+          <li class="included"><i class="fas fa-check-circle"></i> Everything in Pro</li>
+          <li class="included"><i class="fas fa-check-circle"></i> REST API Access</li>
+          <li class="included"><i class="fas fa-check-circle"></i> Custom Integrations</li>
+          <li class="included"><i class="fas fa-check-circle"></i> Multi-team Access</li>
+          <li class="included"><i class="fas fa-check-circle"></i> Dedicated Account Mgr</li>
+          <li class="included"><i class="fas fa-check-circle"></i> White-label Reports</li>
+          <li class="included"><i class="fas fa-check-circle"></i> 99.9% SLA Uptime</li>
+          <li class="included"><i class="fas fa-check-circle"></i> 24/7 Phone + Chat Support</li>
         </ul>
         <button class="plan-btn plan-btn-outline">Contact Sales →</button>
       </div>
 
     </div>
 
-    <!-- Trust Bar -->
+    <!-- ====== LIVE MARKET PRICE CHARTS (PRO FEATURE PREVIEW) ====== -->
+    <div class="plus-section-header">
+      <div>
+        <h2><i class="fas fa-chart-area"></i> Live Market Price Analytics</h2>
+        <p>Real-time commodity prices — exclusive to Pro & Enterprise</p>
+      </div>
+      <span class="plus-pro-badge"><i class="fas fa-lock"></i> Pro Feature</span>
+    </div>
+
+    <div class="plus-charts-grid">
+      <div class="plus-chart-card">
+        <div class="plus-chart-header">
+          <h3>📈 Commodity Price Trends</h3>
+          <div class="plus-chart-tabs">
+            <span class="active">1M</span>
+            <span>3M</span>
+            <span>6M</span>
+            <span>1Y</span>
+          </div>
+        </div>
+        <canvas id="plusCommodityChart" height="220"></canvas>
+        <div class="plus-chart-legend">
+          <span><i style="color:#00ffaa">●</i> Wheat</span>
+          <span><i style="color:#4da3ff">●</i> Rice</span>
+          <span><i style="color:#f0ad4e">●</i> Corn</span>
+          <span><i style="color:#a855f7">●</i> Soybean</span>
+        </div>
+      </div>
+      <div class="plus-chart-card">
+        <div class="plus-chart-header">
+          <h3>💰 ROI Projection with Pro</h3>
+          <span class="plus-roi-badge">+340% Avg. Return</span>
+        </div>
+        <canvas id="plusROIChart" height="220"></canvas>
+        <div class="plus-chart-legend">
+          <span><i style="color:#00ffaa">●</i> With Pro</span>
+          <span><i style="color:#ff6b6b">●</i> Without Pro</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== FEATURE COMPARISON ====== -->
+    <div class="plus-section-header">
+      <div>
+        <h2><i class="fas fa-th-list"></i> Feature Comparison</h2>
+        <p>See exactly what you get with each plan</p>
+      </div>
+    </div>
+
+    <div class="plus-comparison-table">
+      <div class="comparison-row comparison-header">
+        <span>Feature</span>
+        <span>Starter</span>
+        <span>Pro</span>
+        <span>Enterprise</span>
+      </div>
+      <div class="comparison-row">
+        <span>Dashboard Access</span>
+        <span>1</span>
+        <span class="pro-val">All 3</span>
+        <span class="ent-val">All 3 + Custom</span>
+      </div>
+      <div class="comparison-row">
+        <span>AI Crop Recommendations</span>
+        <span><i class="fas fa-times dim"></i></span>
+        <span class="pro-val"><i class="fas fa-check"></i></span>
+        <span class="ent-val"><i class="fas fa-check"></i></span>
+      </div>
+      <div class="comparison-row">
+        <span>Live Market Price Charts</span>
+        <span><i class="fas fa-times dim"></i></span>
+        <span class="pro-val"><i class="fas fa-check"></i></span>
+        <span class="ent-val"><i class="fas fa-check"></i></span>
+      </div>
+      <div class="comparison-row">
+        <span>ML Yield Prediction</span>
+        <span><i class="fas fa-times dim"></i></span>
+        <span class="pro-val"><i class="fas fa-check"></i></span>
+        <span class="ent-val"><i class="fas fa-check"></i></span>
+      </div>
+      <div class="comparison-row">
+        <span>Route Optimization</span>
+        <span><i class="fas fa-times dim"></i></span>
+        <span class="pro-val"><i class="fas fa-check"></i></span>
+        <span class="ent-val"><i class="fas fa-check"></i></span>
+      </div>
+      <div class="comparison-row">
+        <span>API Access</span>
+        <span><i class="fas fa-times dim"></i></span>
+        <span><i class="fas fa-times dim"></i></span>
+        <span class="ent-val"><i class="fas fa-check"></i></span>
+      </div>
+      <div class="comparison-row">
+        <span>Support Level</span>
+        <span>Community</span>
+        <span class="pro-val">Email Priority</span>
+        <span class="ent-val">24/7 Dedicated</span>
+      </div>
+    </div>
+
+    <!-- ====== TESTIMONIALS ====== -->
+    <div class="plus-section-header">
+      <div>
+        <h2><i class="fas fa-quote-left"></i> What Our Users Say</h2>
+        <p>Trusted by farmers, transporters, and vendors across India</p>
+      </div>
+    </div>
+
+    <div class="plus-testimonials">
+      <div class="plus-testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>"The AI crop recommendations increased my yield by 35%. The market price charts helped me sell at the perfect time."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:#00ffaa">R</div>
+          <div>
+            <strong>Rajesh Kumar</strong>
+            <span>Farmer, West Bengal</span>
+          </div>
+        </div>
+      </div>
+      <div class="plus-testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>"Route optimization saved us 40% in fuel costs. The real-time tracking is a game changer for our fleet."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:#4da3ff">S</div>
+          <div>
+            <strong>Suresh Patel</strong>
+            <span>Transporter, Gujarat</span>
+          </div>
+        </div>
+      </div>
+      <div class="plus-testimonial-card">
+        <div class="testimonial-stars">★★★★★</div>
+        <p>"Financial analytics and demand forecasting helped us reduce waste by 60%. Best investment for our business."</p>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:#a855f7">A</div>
+          <div>
+            <strong>Ananya Sharma</strong>
+            <span>Vendor, Maharashtra</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ====== TRUST BAR ====== -->
     <div class="plus-trust">
-      <div class="trust-item">🔒 Secured Payments</div>
-      <div class="trust-item">📦 Cancel Anytime</div>
-      <div class="trust-item">💬 24/7 Support</div>
-      <div class="trust-item">🌍 Used by 10,000+ Farmers</div>
+      <div class="trust-item"><i class="fas fa-shield-alt"></i> 256-bit SSL Encrypted</div>
+      <div class="trust-item"><i class="fas fa-undo"></i> 30-Day Money Back</div>
+      <div class="trust-item"><i class="fas fa-headset"></i> 24/7 Support</div>
+      <div class="trust-item"><i class="fas fa-globe-asia"></i> 10,000+ Users</div>
+    </div>
+
+    <!-- Final CTA -->
+    <div class="plus-final-cta">
+      <h3>Ready to grow smarter?</h3>
+      <p>Start your 14-day free trial of Pro — no credit card required</p>
+      <button class="plus-cta-btn" onclick="closePlusModal()">
+        <i class="fas fa-rocket"></i> Start Free Trial
+      </button>
     </div>
 
   </div>

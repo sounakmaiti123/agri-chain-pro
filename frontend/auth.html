@@ -131,19 +131,70 @@
 
   </div>
 
-  <!-- SUCCESS OVERLAY -->
-  <div id="successOverlay" class="success-overlay hidden">
-    <div class="success-box">
-      <div class="checkmark"></div>
-      <h2>Login Successful</h2>
-      <p>Redirecting to dashboard...</p>
+  <!-- ================= PROFESSIONAL LOGIN LOADER ================= -->
+  <div id="successOverlay" class="login-loader-overlay hidden">
+    <div class="login-loader-particles"></div>
+    <div class="login-loader-container">
+
+      <!-- Animated Logo -->
+      <div class="login-loader-logo">
+        <div class="login-loader-icon">
+          <svg viewBox="0 0 80 80" class="login-check-svg">
+            <circle class="login-check-circle" cx="40" cy="40" r="36" />
+            <path class="login-check-path" d="M24 42 L34 52 L56 30" />
+          </svg>
+        </div>
+        <h2 class="login-loader-title">Authentication Successful</h2>
+        <p class="login-loader-sub">Initializing your AgriChain Pro workspace</p>
+      </div>
+
+      <!-- Progress Steps -->
+      <div class="login-loader-steps">
+        <div class="login-step" data-step="1">
+          <div class="login-step-icon"><i class="fas fa-shield-alt"></i></div>
+          <div class="login-step-info">
+            <span class="login-step-label">Authenticating credentials</span>
+            <span class="login-step-status">Verifying</span>
+          </div>
+          <div class="login-step-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="login-step" data-step="2">
+          <div class="login-step-icon"><i class="fas fa-th-large"></i></div>
+          <div class="login-step-info">
+            <span class="login-step-label">Loading dashboard modules</span>
+            <span class="login-step-status">Pending</span>
+          </div>
+          <div class="login-step-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="login-step" data-step="3">
+          <div class="login-step-icon"><i class="fas fa-link"></i></div>
+          <div class="login-step-info">
+            <span class="login-step-label">Syncing supply chain data</span>
+            <span class="login-step-status">Pending</span>
+          </div>
+          <div class="login-step-check"><i class="fas fa-check"></i></div>
+        </div>
+        <div class="login-step" data-step="4">
+          <div class="login-step-icon"><i class="fas fa-brain"></i></div>
+          <div class="login-step-info">
+            <span class="login-step-label">Preparing AI insights</span>
+            <span class="login-step-status">Pending</span>
+          </div>
+          <div class="login-step-check"><i class="fas fa-check"></i></div>
+        </div>
+      </div>
+
+      <!-- Progress Bar -->
+      <div class="login-loader-progress">
+        <div class="login-loader-progress-bar" id="loginProgressBar"></div>
+      </div>
+      <p class="login-loader-percent" id="loginPercent">0%</p>
+
     </div>
   </div>
 
-  <!-- LOADER -->
-  <div id="redirectLoader" class="redirect-loader hidden">
-    <div class="spinner"></div>
-  </div>
+  <!-- Redirect Loader (kept as fallback) -->
+  <div id="redirectLoader" class="redirect-loader hidden"></div>
 
   <script src="/script.js"></script>
 </body>

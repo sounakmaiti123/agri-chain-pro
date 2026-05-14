@@ -2,6 +2,26 @@
    AUTH REDIRECT (PROTECT INDEX)
 ===================================================== */
 // App initialized
+
+// ================= ROUTE-BASED AUTH LOGIC =================
+// '/' = always logged-out dashboard (Login / Sign Up / Get Plus)
+// '/dashboard' = logged-in dashboard (Profile avatar)
+const currentPath = window.location.pathname;
+
+if (currentPath === '/' && !document.body.classList.contains('auth-page')) {
+  // Root path: always show logged-out mode
+  localStorage.removeItem('loggedIn');
+  localStorage.removeItem('user');
+}
+
+if (currentPath === '/dashboard') {
+  // Dashboard path: require login
+  const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+  if (!isLoggedIn) {
+    window.location.replace('/');
+  }
+}
+
 // ================= PAGE LOAD ANIMATION =================
 window.addEventListener("load", () => {
   const page = document.querySelector(".page");
@@ -145,16 +165,25 @@ window.toggleAuth = function () {
   toggleText.textContent = isLogin ? "Already have an account?" : "Don’t have an account?";
 };
 
+// Auto-show signup form if URL has #signup hash
+if (window.location.hash === '#signup' && document.body.classList.contains('auth-page')) {
+  document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById("loginForm");
+    if (loginForm && !loginForm.classList.contains("hidden")) {
+      window.toggleAuth();
+    }
+  });
+}
 
 
 /* Redirect helpers */
 function goToLogin() {
-  window.location.href = "auth.html";
+  window.location.href = "/login";
 }
 
 function logout() {
   localStorage.clear();
-  window.location.href = "auth.html";
+  window.location.href = "/";
 }
 
 /* Navbar shadow */
@@ -331,19 +360,59 @@ if (loginForm) {
   localStorage.setItem("loggedIn", "true");
   localStorage.setItem("user", JSON.stringify(data));
 
-  // show success animation
+  // Show professional loading sequence
   document.getElementById("successOverlay").classList.remove("hidden");
 
-  setTimeout(() => {
+  // Animate through progress steps
+  const steps = document.querySelectorAll('.login-step');
+  const progressBar = document.getElementById('loginProgressBar');
+  const percentText = document.getElementById('loginPercent');
+  const statusLabels = ['Verifying...', 'Loading...', 'Syncing...', 'Preparing...'];
+  const completeLabels = ['Verified', 'Loaded', 'Synced', 'Ready'];
+  let currentPercent = 0;
 
-    document.getElementById("successOverlay").classList.add("hidden");
-    document.getElementById("redirectLoader").classList.remove("hidden");
+  function animateStep(index) {
+    if (index >= steps.length) {
+      // All steps done — redirect
+      setTimeout(() => {
+        window.location.replace("/dashboard");
+      }, 600);
+      return;
+    }
 
+    const step = steps[index];
+    const statusEl = step.querySelector('.login-step-status');
+
+    // Activate current step
+    step.classList.add('active');
+    statusEl.textContent = statusLabels[index];
+
+    // Animate progress
+    const targetPercent = Math.round(((index + 1) / steps.length) * 100);
+    const percentInterval = setInterval(() => {
+      currentPercent++;
+      if (currentPercent >= targetPercent) {
+        currentPercent = targetPercent;
+        clearInterval(percentInterval);
+      }
+      progressBar.style.width = currentPercent + '%';
+      percentText.textContent = currentPercent + '%';
+    }, 20);
+
+    // Complete after delay
     setTimeout(() => {
-      window.location.replace("/"); // dashboard
-    }, 1500);
+      step.classList.remove('active');
+      step.classList.add('complete');
+      statusEl.textContent = completeLabels[index];
 
-  }, 1200);
+      // Next step
+      setTimeout(() => animateStep(index + 1), 200);
+    }, 700 + Math.random() * 300);
+  }
+
+  // Start step animation after checkmark draws
+  setTimeout(() => animateStep(0), 1400);
+
 
 } else {
         alert(data.error || "Invalid credentials ❌");
@@ -389,7 +458,7 @@ if (signupForm) {
         alert("Signup successful 🎉");
 
         // 🔥 REDIRECT TO LOGIN PAGE
-        window.location.replace("/login");
+        window.location.replace("/");
 
       } else {
         alert(data.error || "Signup failed ❌");
@@ -463,7 +532,8 @@ function setupUserUI() {
   // ❌ NOT LOGGED IN
   if (!isLoggedIn || !user) {
     authContainer.innerHTML = `
-      <button onclick="window.location.href='/auth.html'" class="nav-btn login-btn">Login</button>
+      <button onclick="window.location.href='/login'" class="nav-btn login-btn">Login</button>
+      <button onclick="window.location.href='/login#signup'" class="nav-btn signup-btn">Sign Up</button>
       <button class="nav-btn pro-btn" onclick="openPlusModal()">✨ Get Plus</button>
     `;
     return;
@@ -515,7 +585,7 @@ function logout() {
   }, 400);
 
   setTimeout(() => {
-    window.location.href = "/auth.html";
+    window.location.href = "/";
   }, 1200);
 }
 // ================= PROFILE IMAGE UPLOAD =================
@@ -570,14 +640,140 @@ async function uploadProfileImage(event) {
 }
 
 // ================= GET PLUS MODAL =================
+let plusCommodityChart = null;
+let plusROIChart = null;
+
 function openPlusModal() {
   document.getElementById('plusModal').classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+
+  // Initialize charts after modal is visible
+  setTimeout(() => initPlusCharts(), 100);
 }
 
 function closePlusModal() {
   document.getElementById('plusModal').classList.add('hidden');
   document.body.style.overflow = '';
+
+  // Destroy charts to prevent canvas reuse errors
+  if (plusCommodityChart) { plusCommodityChart.destroy(); plusCommodityChart = null; }
+  if (plusROIChart) { plusROIChart.destroy(); plusROIChart = null; }
+}
+
+function initPlusCharts() {
+  // Commodity Price Trends Chart
+  const commodityCtx = document.getElementById('plusCommodityChart');
+  if (commodityCtx && !plusCommodityChart) {
+    plusCommodityChart = new Chart(commodityCtx, {
+      type: 'line',
+      data: {
+        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+        datasets: [
+          {
+            label: 'Wheat',
+            data: [2.85, 3.10, 3.05, 3.20],
+            borderColor: '#00ffaa',
+            backgroundColor: 'rgba(0,255,170,0.08)',
+            fill: true, tension: 0.4, pointRadius: 4,
+            pointBackgroundColor: '#00ffaa', borderWidth: 2
+          },
+          {
+            label: 'Rice',
+            data: [2.60, 2.75, 2.85, 2.90],
+            borderColor: '#4da3ff',
+            backgroundColor: 'rgba(77,163,255,0.06)',
+            fill: true, tension: 0.4, pointRadius: 4,
+            pointBackgroundColor: '#4da3ff', borderWidth: 2
+          },
+          {
+            label: 'Corn',
+            data: [1.95, 1.80, 1.85, 1.92],
+            borderColor: '#f0ad4e',
+            backgroundColor: 'rgba(240,173,78,0.06)',
+            fill: true, tension: 0.4, pointRadius: 4,
+            pointBackgroundColor: '#f0ad4e', borderWidth: 2
+          },
+          {
+            label: 'Soybean',
+            data: [3.40, 3.55, 3.70, 3.85],
+            borderColor: '#a855f7',
+            backgroundColor: 'rgba(168,85,247,0.06)',
+            fill: true, tension: 0.4, pointRadius: 4,
+            pointBackgroundColor: '#a855f7', borderWidth: 2
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: {
+            ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 11 } },
+            grid: { color: 'rgba(255,255,255,0.04)' }
+          },
+          y: {
+            ticks: {
+              color: 'rgba(255,255,255,0.4)',
+              font: { size: 11 },
+              callback: (v) => '$' + v.toFixed(2)
+            },
+            grid: { color: 'rgba(255,255,255,0.04)' }
+          }
+        }
+      }
+    });
+  }
+
+  // ROI Projection Chart
+  const roiCtx = document.getElementById('plusROIChart');
+  if (roiCtx && !plusROIChart) {
+    plusROIChart = new Chart(roiCtx, {
+      type: 'bar',
+      data: {
+        labels: ['Month 1', 'Month 2', 'Month 3', 'Month 4', 'Month 5', 'Month 6'],
+        datasets: [
+          {
+            label: 'With Pro',
+            data: [5200, 9800, 16500, 24000, 31500, 42000],
+            backgroundColor: 'rgba(0,255,170,0.6)',
+            borderColor: '#00ffaa',
+            borderWidth: 1,
+            borderRadius: 6
+          },
+          {
+            label: 'Without Pro',
+            data: [3200, 5100, 7200, 9000, 10800, 12500],
+            backgroundColor: 'rgba(255,107,107,0.4)',
+            borderColor: '#ff6b6b',
+            borderWidth: 1,
+            borderRadius: 6
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          x: {
+            ticks: { color: 'rgba(255,255,255,0.4)', font: { size: 11 } },
+            grid: { display: false }
+          },
+          y: {
+            ticks: {
+              color: 'rgba(255,255,255,0.4)',
+              font: { size: 11 },
+              callback: (v) => '$' + (v / 1000) + 'k'
+            },
+            grid: { color: 'rgba(255,255,255,0.04)' }
+          }
+        }
+      }
+    });
+  }
 }
 
 // Close on Escape key

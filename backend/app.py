@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, redirect
 from flask_cors import CORS
 from routes.auth_routes import auth
 
@@ -16,9 +16,13 @@ app.register_blueprint(auth, url_prefix="/api/auth")
 def home():
     return render_template("index.html")
 
+@app.route("/dashboard")
+def dashboard():
+    return render_template("index.html")
+
 @app.route("/login")
 def login_page():
     return render_template("auth.html")
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True)
