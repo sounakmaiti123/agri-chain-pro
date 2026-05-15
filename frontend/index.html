@@ -11,6 +11,21 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <script>
+    // Enforce Security: Redirect to login immediately if not logged in
+    (function() {
+      const loggedIn = localStorage.getItem('loggedIn') === 'true';
+      if (!loggedIn) {
+        const path = window.location.pathname;
+        if (path.endsWith('.html')) {
+          window.location.replace('auth.html');
+        } else {
+          window.location.replace('/auth.html');
+        }
+      }
+    })();
+  </script>
 </head>
 
 <body>
@@ -503,6 +518,37 @@
         </tbody>
       </table>
     </div>
+
+    <!-- ================= PAYMENTS SECTION ================= -->
+    <div class="section-header" style="margin-top:30px;">
+      <h2>💳 Pending Payments</h2>
+      <p class="sub">Review and process your pending crop orders</p>
+    </div>
+
+    <div class="route-card" id="order-1">
+      <div>
+        <h3>Order #1042 <span class="status ready">pending</span></h3>
+        <p>🌾 5,000 kg Wheat from Hooghly Farms</p>
+        <p>📅 Due: Today</p>
+      </div>
+      <div style="text-align: right; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end;">
+        <h2 style="margin-bottom: 8px;">$15,500</h2>
+        <button class="start-btn" onclick="openCheckout('order-1', 'Wheat (5,000 kg)', 'Hooghly Farms', 15500, '🌾')">💳 Pay Now</button>
+      </div>
+    </div>
+
+    <div class="route-card" id="order-2">
+      <div>
+        <h3>Order #1043 <span class="status ready">pending</span></h3>
+        <p>🌽 2,000 kg Corn from Burdwan Valley</p>
+        <p>📅 Due: Tomorrow</p>
+      </div>
+      <div style="text-align: right; display: flex; flex-direction: column; justify-content: space-between; align-items: flex-end;">
+        <h2 style="margin-bottom: 8px;">$3,900</h2>
+        <button class="start-btn" onclick="openCheckout('order-2', 'Corn (2,000 kg)', 'Burdwan Valley', 3900, '🌽')">💳 Pay Now</button>
+      </div>
+    </div>
+
 <!-- ================= REVENUE ANALYTICS ================= -->
 <!-- ================= REVENUE + PROFIT ANALYTICS ================= -->
 <div class="section-header" style="margin-top:30px;">
@@ -1192,6 +1238,151 @@
       </button>
     </div>
 
+    </div>
+
+  </div>
+</div>
+
+<!-- ================= E-COMMERCE CHECKOUT MODAL ================= -->
+<div class="overlay hidden" id="checkoutModal">
+  <div class="checkout-container">
+    <button class="close-btn" onclick="closeCheckout()"><i class="fas fa-times"></i></button>
+    
+    <div class="checkout-layout">
+      <!-- Left side: Payment Methods -->
+      <div class="checkout-methods">
+        <h3>Select Payment Method</h3>
+        <div class="method-tabs">
+          <button class="method-tab active" onclick="switchPaymentMethod('card')"><i class="fas fa-credit-card"></i> Credit / Debit Card</button>
+          <button class="method-tab" onclick="switchPaymentMethod('upi')"><i class="fab fa-google-pay"></i> UPI (GPay, PhonePe)</button>
+          <button class="method-tab" onclick="switchPaymentMethod('netbanking')"><i class="fas fa-university"></i> Net Banking</button>
+          <button class="method-tab" onclick="switchPaymentMethod('cod')"><i class="fas fa-money-bill-wave"></i> Pay on Delivery</button>
+        </div>
+
+        <!-- Dynamic Payment Forms -->
+        <div class="payment-forms">
+          
+          <!-- Card Form -->
+          <div id="form-card" class="payment-form active">
+            <div class="checkout-field">
+              <label>Card Number</label>
+              <div class="input-icon">
+                <i class="far fa-credit-card"></i>
+                <input type="text" placeholder="1111-2222-3333-4444" maxlength="19">
+              </div>
+            </div>
+            <div class="checkout-field-row">
+              <div class="checkout-field">
+                <label>Valid Thru</label>
+                <input type="text" placeholder="MM/YY" maxlength="5">
+              </div>
+              <div class="checkout-field">
+                <label>CVV</label>
+                <input type="password" placeholder="•••" maxlength="3">
+              </div>
+            </div>
+            <div class="checkout-field">
+              <label>Name on Card</label>
+              <input type="text" placeholder="John Doe">
+            </div>
+          </div>
+
+          <!-- UPI Form -->
+          <div id="form-upi" class="payment-form">
+            <div class="upi-container">
+              <p>Enter your Virtual Payment Address (VPA)</p>
+              <div class="checkout-field">
+                <div class="input-icon">
+                  <i class="fas fa-at"></i>
+                  <input type="text" placeholder="username@upi">
+                </div>
+              </div>
+              <div class="upi-apps">
+                <div class="dummy-app">GPay</div>
+                <div class="dummy-app">PhonePe</div>
+                <div class="dummy-app">Paytm</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Net Banking Form -->
+          <div id="form-netbanking" class="payment-form">
+            <div class="checkout-field">
+              <label>Select Bank</label>
+              <select class="checkout-select">
+                <option>State Bank of India</option>
+                <option>HDFC Bank</option>
+                <option>ICICI Bank</option>
+                <option>Axis Bank</option>
+                <option>Kotak Mahindra Bank</option>
+              </select>
+            </div>
+            <div class="bank-grid">
+              <div class="bank-item">SBI</div>
+              <div class="bank-item">HDFC</div>
+              <div class="bank-item">ICICI</div>
+              <div class="bank-item">AXIS</div>
+            </div>
+          </div>
+
+          <!-- COD Form -->
+          <div id="form-cod" class="payment-form">
+            <div class="cod-container">
+              <i class="fas fa-box-open" style="font-size:32px; color:var(--accent); margin-bottom:15px;"></i>
+              <p>Pay cash or via UPI to the delivery executive when your order arrives.</p>
+              <p style="font-size:12px; color:var(--text-muted); margin-top:10px;">*Additional ₹50 handling charge applies for Cash on Delivery.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Right side: Order Summary -->
+      <div class="checkout-summary">
+        <h3>Order Summary</h3>
+        
+        <div class="summary-item-card">
+          <div class="summary-icon" id="checkoutIcon">🌾</div>
+          <div class="summary-details">
+            <strong id="checkoutItemName">Wheat (5,000 kg)</strong>
+            <small id="checkoutItemSeller">Hooghly Farms</small>
+          </div>
+        </div>
+
+        <div class="summary-breakdown">
+          <div class="summary-row">
+            <span>Item Total</span>
+            <span id="checkoutSubtotal">$15,500</span>
+          </div>
+          <div class="summary-row">
+            <span>Platform Fee (1%)</span>
+            <span id="checkoutFee">$155</span>
+          </div>
+          <div class="summary-row">
+            <span>Tax (GST 5%)</span>
+            <span id="checkoutTax">$775</span>
+          </div>
+          <hr>
+          <div class="summary-row total-row">
+            <span>Amount Payable</span>
+            <span id="checkoutTotal">$16,430</span>
+          </div>
+        </div>
+
+        <div class="trust-badge-small">
+          <i class="fas fa-lock"></i> 100% Safe and Secure Payments.
+        </div>
+
+        <button class="place-order-btn" id="placeOrderBtn" onclick="submitCheckout()">
+          Pay <span id="checkoutBtnTotal">$16,430</span>
+        </button>
+
+        <div class="checkout-loading hidden" id="checkoutLoader">
+          <div class="spinner"></div>
+          <p id="checkoutStatusText">Processing Payment...</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

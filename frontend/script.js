@@ -4,21 +4,30 @@
 // App initialized
 
 // ================= ROUTE-BASED AUTH LOGIC =================
-// '/' = always logged-out dashboard (Login / Sign Up / Get Plus)
-// '/dashboard' = logged-in dashboard (Profile avatar)
-const currentPath = window.location.pathname;
+const isAuthPage = document.body.classList.contains('auth-page');
+const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
 
-if (currentPath === '/' && !document.body.classList.contains('auth-page')) {
-  // Root path: always show logged-out mode
-  localStorage.removeItem('loggedIn');
-  localStorage.removeItem('user');
-}
-
-if (currentPath === '/dashboard') {
-  // Dashboard path: require login
-  const isLoggedIn = localStorage.getItem('loggedIn') === 'true';
+if (!isAuthPage) {
+  // We are on the dashboard/main page
   if (!isLoggedIn) {
-    window.location.replace('/');
+    // Enforce Security: Redirect to login immediately
+    const path = window.location.pathname;
+    if (path.endsWith('.html')) {
+      window.location.replace('auth.html');
+    } else {
+      window.location.replace('/auth.html');
+    }
+  }
+} else {
+  // We are on the auth page
+  if (isLoggedIn) {
+    // If already logged in, skip auth and go to dashboard
+    const path = window.location.pathname;
+    if (path.endsWith('.html')) {
+      window.location.replace('index.html');
+    } else {
+      window.location.replace('/dashboard'); // or '/' depending on server setup
+    }
   }
 }
 
@@ -362,7 +371,12 @@ if (loginForm) {
     if (index >= steps.length) {
       // All steps done — redirect
       setTimeout(() => {
-        window.location.replace("/dashboard");
+        const path = window.location.pathname;
+        if (path.endsWith('.html')) {
+          window.location.replace("index.html");
+        } else {
+          window.location.replace("/dashboard"); // or '/' depending on server setup
+        }
       }, 600);
       return;
     }
@@ -445,7 +459,12 @@ if (signupForm) {
         alert("Signup successful 🎉");
 
         // 🔥 REDIRECT TO LOGIN PAGE
-        window.location.replace("/");
+        const path = window.location.pathname;
+        if (path.endsWith('.html')) {
+          window.location.replace("auth.html");
+        } else {
+          window.location.replace("/");
+        }
 
       } else {
         alert(data.error || "Signup failed ❌");
@@ -572,7 +591,12 @@ function logout() {
   }, 400);
 
   setTimeout(() => {
-    window.location.href = "/";
+    const path = window.location.pathname;
+    if (path.endsWith('.html')) {
+      window.location.href = "auth.html";
+    } else {
+      window.location.href = "/";
+    }
   }, 1200);
 }
 // ================= PROFILE IMAGE UPLOAD =================
@@ -940,5 +964,99 @@ window.toggleArbitrageBid = function (dest, cb) {
   } else {
     console.log(`Auto-Bid trigger deactivated for ${dest}.`);
   }
+};
+
+/* =====================================================
+   E-COMMERCE CHECKOUT MODAL LOGIC
+===================================================== */
+let currentCheckoutOrderId = null;
+
+window.openCheckout = function(orderId, itemName, seller, subtotal, icon) {
+  currentCheckoutOrderId = orderId;
+  
+  // Populate Order Summary
+  document.getElementById('checkoutIcon').textContent = icon;
+  document.getElementById('checkoutItemName').textContent = itemName;
+  document.getElementById('checkoutItemSeller').textContent = seller;
+  
+  // Calculate totals
+  const fee = Math.round(subtotal * 0.01);
+  const tax = Math.round(subtotal * 0.05);
+  const total = subtotal + fee + tax;
+  
+  document.getElementById('checkoutSubtotal').textContent = '$' + subtotal.toLocaleString();
+  document.getElementById('checkoutFee').textContent = '$' + fee.toLocaleString();
+  document.getElementById('checkoutTax').textContent = '$' + tax.toLocaleString();
+  document.getElementById('checkoutTotal').textContent = '$' + total.toLocaleString();
+  document.getElementById('checkoutBtnTotal').textContent = '$' + total.toLocaleString();
+  
+  // Reset UI state
+  document.getElementById('checkoutLoader').classList.add('hidden');
+  document.getElementById('checkoutStatusText').textContent = 'Processing Payment...';
+  
+  // Show Modal
+  document.getElementById('checkoutModal').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+};
+
+window.closeCheckout = function() {
+  document.getElementById('checkoutModal').classList.add('hidden');
+  document.body.style.overflow = '';
+};
+
+window.switchPaymentMethod = function(methodId) {
+  // Update Tabs
+  document.querySelectorAll('.method-tab').forEach(tab => {
+    tab.classList.remove('active');
+  });
+  event.currentTarget.classList.add('active');
+  
+  // Update Forms
+  document.querySelectorAll('.payment-form').forEach(form => {
+    form.classList.remove('active');
+  });
+  document.getElementById(`form-${methodId}`).classList.add('active');
+};
+
+window.submitCheckout = function() {
+  const loader = document.getElementById('checkoutLoader');
+  const statusText = document.getElementById('checkoutStatusText');
+  const btn = document.getElementById('placeOrderBtn');
+  
+  loader.classList.remove('hidden');
+  statusText.textContent = 'Authenticating Secure Connection...';
+  
+  setTimeout(() => {
+    statusText.textContent = 'Processing Payment with Bank...';
+  }, 1000);
+  
+  setTimeout(() => {
+    statusText.innerHTML = '<i class="fas fa-check-circle" style="color:#00ffaa; font-size:48px; margin-bottom:15px;"></i><br>Payment Successful!';
+    
+    // Update the Order Card in Vendor Dashboard
+    if (currentCheckoutOrderId) {
+      const orderBtn = document.querySelector(`#${currentCheckoutOrderId} button`);
+      if (orderBtn) {
+        orderBtn.innerHTML = `✅ Paid Successfully`;
+        orderBtn.style.background = 'linear-gradient(135deg, #1c6f4a, #2f8f67)';
+        orderBtn.style.color = '#fff';
+        orderBtn.disabled = true;
+      }
+      const statusSpan = document.querySelector(`#${currentCheckoutOrderId} .status`);
+      if (statusSpan) {
+        statusSpan.className = 'status harvested';
+        statusSpan.textContent = 'paid';
+      }
+      const card = document.getElementById(currentCheckoutOrderId);
+      if(card) {
+        card.style.borderColor = '#38b87c';
+      }
+    }
+    
+    setTimeout(() => {
+      closeCheckout();
+    }, 1500);
+    
+  }, 2500);
 };
 
