@@ -345,6 +345,91 @@
         </div>
       </div>
 
+      <!-- ROUTE OPTIMIZER -->
+      <div class="route-optimizer-card">
+        <div class="ro-header">
+          <h3><i class="fa-solid fa-location-arrow" style="color: #34d399; margin-right: 8px;"></i> Advanced Route Optimizer</h3>
+          <p>Comprehensive route planning with traffic, weather, and cost optimization</p>
+        </div>
+        
+        <form class="ro-form">
+          <div class="ro-grid-2">
+            <div class="ro-form-group">
+              <label>Pickup Location</label>
+              <div class="ro-input-wrap">
+                <select><option>Select pickup location</option></select>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+            </div>
+            <div class="ro-form-group">
+              <label>Destination</label>
+              <div class="ro-input-wrap">
+                <select><option>Select destination</option></select>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+          
+          <div class="ro-grid-3">
+            <div class="ro-form-group">
+              <label>Vehicle Type</label>
+              <div class="ro-input-wrap">
+                <select><option>Select vehicle</option></select>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+            </div>
+            <div class="ro-form-group">
+              <label>Cargo Weight (kg)</label>
+              <div class="ro-input-wrap">
+                <input type="text" placeholder="e.g., 2500">
+              </div>
+            </div>
+            <div class="ro-form-group">
+              <label>Cargo Type</label>
+              <div class="ro-input-wrap">
+                <select><option>Select cargo type</option></select>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+          
+          <div class="ro-grid-2">
+            <div class="ro-form-group">
+              <label>Route Priority</label>
+              <div class="ro-input-wrap">
+                <select><option>Select priority</option></select>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+            </div>
+            <div class="ro-form-group">
+              <label>Preferred Departure Time</label>
+              <div class="ro-input-wrap">
+                <select><option>Select time</option></select>
+                <i class="fa-solid fa-chevron-down"></i>
+              </div>
+            </div>
+          </div>
+          
+          <div class="ro-restrictions">
+            <label class="ro-restrictions-title">Route Restrictions (Avoid)</label>
+            <div class="ro-checkbox-grid">
+              <label class="ro-checkbox"><input type="checkbox"> <span class="ro-checkmark"></span> Toll Roads</label>
+              <label class="ro-checkbox"><input type="checkbox"> <span class="ro-checkmark"></span> Highways</label>
+              <label class="ro-checkbox"><input type="checkbox"> <span class="ro-checkmark"></span> Ferries</label>
+              <label class="ro-checkbox"><input type="checkbox"> <span class="ro-checkmark"></span> Unpaved Roads</label>
+              <label class="ro-checkbox"><input type="checkbox"> <span class="ro-checkmark"></span> Construction Zones</label>
+            </div>
+            
+            <div class="ro-toggles-grid">
+              <label class="ro-checkbox"><input type="checkbox" checked> <span class="ro-checkmark"></span> Include weather delays</label>
+              <label class="ro-checkbox"><input type="checkbox" checked> <span class="ro-checkmark"></span> Use live traffic data</label>
+            </div>
+          </div>
+          
+          <button type="button" class="ro-submit-btn full">Find Optimal Route</button>
+        </form>
+      </div>
+
       <div class="section-header">
         <div>
           <h2>Route Management</h2>
@@ -1097,7 +1182,9 @@
             <span>1Y</span>
           </div>
         </div>
-        <canvas id="plusCommodityChart" height="220"></canvas>
+          <div style="position: relative; height: 260px; width: 100%;">
+            <canvas id="plusCommodityChart" height="220"></canvas>
+          </div>
         <div class="plus-chart-legend">
           <span><i style="color:#00ffaa">●</i> Wheat</span>
           <span><i style="color:#4da3ff">●</i> Rice</span>
@@ -1110,7 +1197,9 @@
           <h3>💰 ROI Projection with Pro</h3>
           <span class="plus-roi-badge">+340% Avg. Return</span>
         </div>
-        <canvas id="plusROIChart" height="220"></canvas>
+          <div style="position: relative; height: 260px; width: 100%;">
+            <canvas id="plusROIChart" height="220"></canvas>
+          </div>
         <div class="plus-chart-legend">
           <span><i style="color:#00ffaa">●</i> With Pro</span>
           <span><i style="color:#ff6b6b">●</i> Without Pro</span>
